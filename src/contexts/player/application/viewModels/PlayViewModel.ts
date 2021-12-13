@@ -29,10 +29,6 @@ export class PlayViewModel extends PlayController implements IObserver<PlayViewM
     this.onChange(PlayViewModelObservalbeState.GameBoard);
   }
 
-  accept(visitor: IControllerVisitor): void {
-    super.accept(visitor);
-    this.onChange(PlayViewModelObservalbeState.GameBoard);
-  }
 
   onChange(state: PlayViewModelObservalbeState): void {
     this.subscriptions
