@@ -1,10 +1,12 @@
 import { Move } from "../../domain/Move";
 import { Session } from "../../domain/Session";
+import { IControllerVisitor } from "../IControllerVisitor";
 import { PlayController } from "../PlayController";
 import { IObserver } from "./IObserver";
+import { PlayViewModelObservalbeState } from "./PlayViewModelObservalbeState";
 import { Subscription } from "./Subscription";
-export class PlayViewModel extends PlayController implements IObserver<PlayViewModel> {
-  public readonly gameBoardState = "gameBoardState";
+
+export class PlayViewModel extends PlayController implements IObserver<PlayViewModelObservalbeState> {
   private readonly subscriptions: Subscription[];
 
   constructor(session: Session) {
@@ -14,25 +16,30 @@ export class PlayViewModel extends PlayController implements IObserver<PlayViewM
 
   executeMove(move?: Move): void {
     super.executeMove(move);
-    this.onChange(this.gameBoardState);
+    this.onChange(PlayViewModelObservalbeState.GameBoard);
   }
 
   undo(): void {
     super.undo();
-    this.onChange(this.gameBoardState);
+    this.onChange(PlayViewModelObservalbeState.GameBoard);
   }
 
   redo(): void {
     super.redo();
-    this.onChange(this.gameBoardState);
+    this.onChange(PlayViewModelObservalbeState.GameBoard);
   }
 
-  onChange(property: keyof this): void {
+  accept(visitor: IControllerVisitor): void {
+    super.accept(visitor);
+    this.onChange(PlayViewModelObservalbeState.GameBoard);
+  }
+
+  onChange(state: PlayViewModelObservalbeState): void {
     this.subscriptions
-      .filter(s => s.getObservedProperty() === property)
+      .filter(s => s.getObservedProperty() === state)
       .forEach(s => s.onChange());
   }
-  subscribe(subscription: Subscription): void {
+  subscribe(subscription: Subscription<PlayViewModelObservalbeState>): void {
     this.subscriptions.push(subscription);
   }
 }

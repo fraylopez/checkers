@@ -5,6 +5,7 @@ import { HumanPlayerView } from "./models/HumanPlayerView";
 import { PlayerView } from "./models/PlayerView";
 import { AIPlayerView } from "./models/AIPlayerView";
 import { PlayViewModel } from "../../contexts/player/application/viewModels/PlayViewModel";
+import { PlayViewModelObservalbeState } from "../../contexts/player/application/viewModels/PlayViewModelObservalbeState";
 import { Subscription } from "../../contexts/player/application/viewModels/Subscription";
 
 export class PlayView {
@@ -12,7 +13,10 @@ export class PlayView {
 
   constructor(playViewModel: PlayViewModel) {
     this.gameView = new GameView(playViewModel);
-    playViewModel.subscribe(new Subscription<PlayViewModel>("gameBoardState", this.render.bind(this)));
+    playViewModel.subscribe(new Subscription<PlayViewModelObservalbeState>(
+      PlayViewModelObservalbeState.GameBoard,
+      this.render.bind(this)
+    ));
   }
 
   interact(controller: PlayController) {

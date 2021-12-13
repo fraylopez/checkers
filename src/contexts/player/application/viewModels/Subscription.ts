@@ -1,11 +1,11 @@
 export class Subscription<T = any> {
   constructor(
-    private readonly observedProperties: keyof T,
+    private readonly observedProperty: T,
     private readonly callback: () => void
   ) { }
 
-  getObservedProperty(): keyof T {
-    return this.observedProperties;
+  getObservedProperty(): T {
+    return this.observedProperty;
   }
   onChange() {
     this.callback();
