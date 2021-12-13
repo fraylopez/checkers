@@ -25,7 +25,15 @@ export class PlayView {
     this.renderGame();
   }
 
-  getPlayerView(controller: PlayController): PlayerView {
+  private renderGame() {
+    this.gameView.render();
+  }
+
+  private renderMenu(controller: PlayController) {
+    this.getPlayerView(controller).executeNextMove();
+  }
+
+  private getPlayerView(controller: PlayController): PlayerView {
     // TODO: possible extension point. Not extensible in current scope
     const playerType = controller.getCurrentPlayerType();
     switch (playerType) {
@@ -36,11 +44,4 @@ export class PlayView {
     }
   }
 
-  private renderGame() {
-    this.gameView.render();
-  }
-
-  private renderMenu(controller: PlayController) {
-    this.getPlayerView(controller).executeNextMove();
-  }
 }
