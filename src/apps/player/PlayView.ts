@@ -25,14 +25,6 @@ export class PlayView {
     this.render();
   }
 
-  private interact(controller: PlayController) {
-    this.getPlayerView(controller).executeNextMove();
-  }
-
-  render() {
-    this.gameView.render();
-  }
-
   getPlayerView(controller: PlayController): PlayerView {
     // TODO: possible extension point. Not extensible in current scope
     const playerType = controller.getCurrentPlayerType();
@@ -42,5 +34,14 @@ export class PlayView {
       case PlayerType.AI:
         return new AIPlayerView(controller);
     }
+  }
+
+  private render() {
+    this.gameView.render();
+  }
+
+
+  private interact(controller: PlayController) {
+    this.getPlayerView(controller).executeNextMove();
   }
 }
