@@ -1,6 +1,5 @@
 import { Move } from "../../domain/Move";
 import { Session } from "../../domain/Session";
-import { IControllerVisitor } from "../IControllerVisitor";
 import { PlayController } from "../PlayController";
 import { IObserver } from "./IObserver";
 import { PlayViewModelObservalbeState } from "./PlayViewModelObservalbeState";
@@ -29,6 +28,9 @@ export class PlayViewModel extends PlayController implements IObserver<PlayViewM
     this.onChange(PlayViewModelObservalbeState.GameBoard);
   }
 
+  interactMenu(): void {
+    this.onChange(PlayViewModelObservalbeState.Menu);
+  }
 
   onChange(state: PlayViewModelObservalbeState): void {
     this.subscriptions
