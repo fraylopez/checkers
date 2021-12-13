@@ -17,6 +17,7 @@ export class PlayView {
       PlayViewModelObservalbeState.GameBoard,
       this.render.bind(this)
     ));
+    this.render();
   }
 
   interact(controller: PlayController) {
