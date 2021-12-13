@@ -17,10 +17,15 @@ export class PlayView {
       PlayViewModelObservalbeState.GameBoard,
       this.render.bind(this)
     ));
+    playViewModel.subscribe(new Subscription<PlayViewModelObservalbeState>(
+      PlayViewModelObservalbeState.Menu,
+      () => this.interact(playViewModel)
+    ));
+
     this.render();
   }
 
-  interact(controller: PlayController) {
+  private interact(controller: PlayController) {
     this.getPlayerView(controller).executeNextMove();
   }
 

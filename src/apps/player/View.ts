@@ -34,7 +34,7 @@ export class View implements IView, IControllerVisitor {
     this.startView.interact(controller);
   }
   visitPlayController(controller: PlayController): void {
-    this.playView.interact(controller);
+    // this.playView.interact(controller);
   }
   visitResumeController(controller: ResumeController): void {
     this.resumeView.interact(controller);
