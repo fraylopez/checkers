@@ -1,6 +1,6 @@
 import { Subscription } from "./Subscription";
 
-export interface IObserver {
-  onChange(): void;
+export interface IObserver<T = any> {
+  onChange(property: keyof T): void;
   subscribe(subscription: Subscription): void;
 }

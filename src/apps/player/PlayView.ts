@@ -5,13 +5,14 @@ import { HumanPlayerView } from "./models/HumanPlayerView";
 import { PlayerView } from "./models/PlayerView";
 import { AIPlayerView } from "./models/AIPlayerView";
 import { PlayViewModel } from "../../contexts/player/application/viewModels/PlayViewModel";
+import { Subscription } from "../../contexts/player/application/viewModels/Subscription";
 
 export class PlayView {
   private gameView!: GameView;
 
   constructor(playViewModel: PlayViewModel) {
     this.gameView = new GameView(playViewModel);
-    playViewModel.subscribe(this.render.bind(this));
+    playViewModel.subscribe(new Subscription<PlayViewModel>("gameBoardState", this.render.bind(this)));
   }
 
   interact(controller: PlayController) {
