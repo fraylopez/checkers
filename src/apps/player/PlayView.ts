@@ -15,14 +15,14 @@ export class PlayView {
     this.gameView = new GameView(playViewModel);
     playViewModel.subscribe(new Subscription<PlayViewModelObservalbeState>(
       PlayViewModelObservalbeState.GameBoard,
-      this.render.bind(this)
+      this.renderGame.bind(this)
     ));
     playViewModel.subscribe(new Subscription<PlayViewModelObservalbeState>(
       PlayViewModelObservalbeState.Menu,
-      () => this.interact(playViewModel)
+      () => this.renderMenu(playViewModel)
     ));
 
-    this.render();
+    this.renderGame();
   }
 
   getPlayerView(controller: PlayController): PlayerView {
@@ -36,12 +36,11 @@ export class PlayView {
     }
   }
 
-  private render() {
+  private renderGame() {
     this.gameView.render();
   }
 
-
-  private interact(controller: PlayController) {
+  private renderMenu(controller: PlayController) {
     this.getPlayerView(controller).executeNextMove();
   }
 }
