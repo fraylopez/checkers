@@ -1,4 +1,3 @@
-import { PlayController } from "../../contexts/player/application/PlayController";
 import { GameView } from "./models/GameView";
 import { PlayerType } from "../../contexts/player/domain/player/PlayerType";
 import { HumanPlayerView } from "./models/HumanPlayerView";
