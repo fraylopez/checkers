@@ -11,7 +11,7 @@ import { Subscription } from "../../contexts/player/application/viewModels/Subsc
 export class PlayView {
   private gameView!: GameView;
 
-  constructor(playViewModel: PlayViewModel) {
+  constructor(private readonly playViewModel: PlayViewModel) {
     this.gameView = new GameView(playViewModel);
     playViewModel.subscribe(new Subscription<PlayViewModelObservalbeState>(
       PlayViewModelObservalbeState.GameBoard,
@@ -19,7 +19,7 @@ export class PlayView {
     ));
     playViewModel.subscribe(new Subscription<PlayViewModelObservalbeState>(
       PlayViewModelObservalbeState.Menu,
-      () => this.renderMenu(playViewModel)
+      this.renderMenu.bind(this)
     ));
 
     this.renderGame();
@@ -29,18 +29,18 @@ export class PlayView {
     this.gameView.render();
   }
 
-  private renderMenu(controller: PlayController) {
-    this.getPlayerView(controller).executeNextMove();
+  private renderMenu() {
+    this.getPlayerView().executeNextMove();
   }
 
-  private getPlayerView(controller: PlayController): PlayerView {
+  private getPlayerView(): PlayerView {
     // TODO: possible extension point. Not extensible in current scope
-    const playerType = controller.getCurrentPlayerType();
+    const playerType = this.playViewModel.getCurrentPlayerType();
     switch (playerType) {
       case PlayerType.Human:
-        return new HumanPlayerView(controller);
+        return new HumanPlayerView(this.playViewModel);
       case PlayerType.AI:
-        return new AIPlayerView(controller);
+        return new AIPlayerView(this.playViewModel);
     }
   }
 
